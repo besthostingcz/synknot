@@ -1,0 +1,71 @@
+; directory for PRI records
+path-pri = /var/lib/knot/pri/
+path-pri-tmp = /var/lib/knot/pri-tmp/
+path-pri-backup = /var/lib/knot/pri-backup/
+
+; file for PRI records list
+path-zones = /var/lib/knot/knot.conf.zones
+path-zones-backup = /var/lib/knot/knot.conf.zones.bak
+path-zones-tmp = /var/lib/knot/knot.conf.zones.tmp
+
+; user and group, that owns configuration
+file-user = knot
+file-group = knot
+
+; master vs. slave option
+server-status = master
+server-master = master
+server-slaves[] = slave1
+server-slaves[] = slave2
+server-slaves-ip[] = slaveip1
+server-slaves-ip[] = slaveip2
+
+; final commands after sync
+reload-commands[] = "/etc/init.d/knot reload"
+restart-commands[] = "/etc/init.d/knot restart"
+
+; directory for PTR records
+path-ptr = /var/lib/knot/ptr/
+path-ptr-tmp = /var/lib/knot/ptr-tmp/
+path-ptr-backup = /var/lib/knot/ptr-backup/
+
+; file for PTR record list
+path-zones-ptr = /etc/knot/knot.ptr.conf.zones
+path-zones-ptr-backup = /etc/knot/knot.ptr.conf.zones.bak
+path-zones-ptr-tmp = /etc/knot/knot.ptr.conf.zones.tmp
+
+; single instance locking
+lockfile = /var/lock/dns-sync.lock
+
+; log file
+logfile = /var/log/knotsync-log.log
+
+; DataAdapers - DNSRecords and PTR
+data-adapter.dns-records = DNSSync\Application\Adapters\TestDNSRecordsAdapter
+data-adapter.ptr-records = DNSSync\Application\Adapters\TestPTRAdapter
+
+; TTL for PTR
+ptr-ttl = 86400
+; primary nameserver
+ptr-soa-name-server = ns1.best-hosting.cz
+; admin email with @ or .
+ptr-soa-admin-email = admin@best-net.cz
+;The number of seconds before the zone should be refreshed.
+ptr-soa-limit-1 = 10800
+;The number of seconds before a failed refresh should be retried.
+ptr-soa-limit-2 = 3600
+;The upper limit in seconds before a zone is considered no longer authoritative.
+ptr-soa-limit-3 = 1209600
+;The negative result TTL (for example, how long a resolver should consider a negative result for a subdomain to be valid before retrying).
+ptr-soa-limit-4 = 86400
+ptr-nameserver-list[] = ns1.best-hosting.cz
+ptr-nameserver-list[] = ns2.best-hosting.cz
+ptr-nameserver-list[] = ns3.best-hosting.cz
+
+
+; some other CUSTOM parameters for CUSTOM DataAdapters - they will be inserted to the adapter automatically
+; you can use any config name or value, that you want (keep in mind, not to rewrite used once - up here)
+server = 192.168.1.1
+login = root
+password = password
+database = databasename
