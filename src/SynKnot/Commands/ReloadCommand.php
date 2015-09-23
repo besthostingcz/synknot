@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,16 +8,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use DNSSync\Application\DNSSynchronizer;
-use DNSSync\Application\FileBuilder;
-use DNSSync\Exception\DNSSyncException;
+use SynKnot\Application\DNSSynchronizer;
+use SynKnot\Application\FileBuilder;
+use SynKnot\Exception\SynKnotException;
 use \DateTime;
 use \DateInterval;
 
 class ReloadCommand extends ConfigCommand{
 
     protected function configure(){   
-        $this->setName("dns-sync:reload")
+        $this->setName("synknot:reload")
              ->setDescription("Sync new DNS and PTR records + reload service")
 //              ->setDefinition(array(
 //                       new InputOption('start', 's', InputOption::VALUE_OPTIONAL, 'Start number of the range of Fibonacci number', $start),
@@ -31,15 +31,15 @@ class ReloadCommand extends ConfigCommand{
 //         $stop  = intval($input->getOption('stop'));
 
 //     	sleep(10);
-//     	throw new DNSSyncException("chybka");
+//     	throw new SynKnotException("chybka");
 //     	var_dump("executing reload");
     	
     	//nasype DNS (pri) zóny do temp adresáře
-    	$dnsCommand = $this->getApplication()->find('dns-sync:dns');
+    	$dnsCommand = $this->getApplication()->find('synknot:dns');
     	$dnsCommand->run($input, $output);
 
     	//nasype PTR zóny do tmp adresáře
-    	$ptrCommand = $this->getApplication()->find('dns-sync:ptr');
+    	$ptrCommand = $this->getApplication()->find('synknot:ptr');
     	$ptrCommand->run($input, $output);
     	
         $fileBuilder = new FileBuilder($this->config);

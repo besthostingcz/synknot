@@ -12,12 +12,12 @@ require_once __DIR__ . '/vendor/autoload.php';
 // import the Symfony Console Application 
 use Symfony\Component\Console\Application; 
 use Symfony\Component\Console\Command\Command;
-// use DNSSync\Commands\TestCommand;
-// use DNSSync\Commands\PTRSyncCommand;
-// use DNSSync\Commands\DNSSyncCommand;
-// use DNSSync\Commands\ReloadCommand;
-// use DNSSync\Commands\RestartCommand;
-use DNSSync\Application\DNSSyncApplication;
+// use SynKnot\Commands\TestCommand;
+// use SynKnot\Commands\PTRSyncCommand;
+// use SynKnot\Commands\DNSSyncCommand;
+// use SynKnot\Commands\ReloadCommand;
+// use SynKnot\Commands\RestartCommand;
+use SynKnot\Application\DNSSyncApplication;
 
 
 // $fp = fopen("/var/lock/dns-sync.lock", "w");

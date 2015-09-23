@@ -1,12 +1,12 @@
 <?php 
-namespace DNSSync\Application;
+namespace SynKnot\Application;
 
-use DNSSync\Exception\MissingSOAException;
-use DNSSync\Exception\DNSSyncException;
+use SynKnot\Exception\MissingSOAException;
+use SynKnot\Exception\SynKnotException;
 use \Exception;
-use DNSSync\Application\Adapters\IAdapter;
-use DNSSync\Application\Logger\ILogger;
-use DNSSync\Application\Logger\DummyLogger;
+use SynKnot\Application\Adapters\IAdapter;
+use SynKnot\Application\Logger\ILogger;
+use SynKnot\Application\Logger\DummyLogger;
 
 class DNSSynchronizer{
 	private $config;
@@ -216,7 +216,7 @@ class DNSSynchronizer{
 	
 	public function reloadService(){
 		if(!isset($this->config['reload-commands'])){
-			throw new DNSSyncException("reload-commands are not deffined in config"); 
+			throw new SynKnotException("reload-commands are not deffined in config"); 
 		}
 		
 		$commands = $this->config['reload-commands'];
@@ -229,7 +229,7 @@ class DNSSynchronizer{
 	
 	public function restartService(){
 		if(!isset($this->config['restart-commands'])){
-			throw new DNSSyncException("restart-commands are not deffined in config"); 
+			throw new SynKnotException("restart-commands are not deffined in config"); 
 		}
 		
 		$commands = $this->config['restart-commands'];

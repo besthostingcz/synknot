@@ -1,10 +1,10 @@
 <?php 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use DNSSync\Commands\ReloadCommand;
-use DNSSync\Commands\RestartCommand;
-use DNSSync\Commands\DNSSyncCommand;
-use DNSSync\Commands\PTRSyncCommand;
+use SynKnot\Commands\ReloadCommand;
+use SynKnot\Commands\RestartCommand;
+use SynKnot\Commands\DNSSyncCommand;
+use SynKnot\Commands\PTRSyncCommand;
 
 
 class ReloadCommandTest extends ApplicationCommandTest{
@@ -12,7 +12,7 @@ class ReloadCommandTest extends ApplicationCommandTest{
 		$application = $this->getApplication();
 		$application->loadCommands();
 		// 		var_dump($application);
-		$comm = $application->find("dns-sync:reload");
+		$comm = $application->find("synknot:reload");
 		
 		$commTester = new CommandTester($comm);
 		$commTester->execute(array(
@@ -31,7 +31,7 @@ class ReloadCommandTest extends ApplicationCommandTest{
 		$application->addToConfig(array("password" => "spatne-heslo"));
 		$application->loadCommands();
 		
-		$comm = $application->find("dns-sync:reload");
+		$comm = $application->find("synknot:reload");
 		
 		$commTester = new CommandTester($comm);
 		$commTester->execute(array(
@@ -40,7 +40,7 @@ class ReloadCommandTest extends ApplicationCommandTest{
 		
 		$this->assertEquals("spatne-heslo", $comm->getConfigValue("password"));
 		
-		$this->setExpectedException('DNSSync\Exception\DNSSyncException', "chybka");
+		$this->setExpectedException('SynKnot\Exception\SynKnotException', "chybka");
 		
 // 		$this->assertRegExp("/Reloading service/", $commTester->getDisplay());
 	}
@@ -53,7 +53,7 @@ class ReloadCommandTest extends ApplicationCommandTest{
 		
 		$application = $this->getApplication();
 		$application->loadCommands();
-		$comm = $application->find("dns-sync:reload");
+		$comm = $application->find("synknot:reload");
 		//$comm->setConfigValue("ptr-password", "spatne-ws-heslo");
 		
 		$commTester = new CommandTester($comm);
@@ -61,9 +61,9 @@ class ReloadCommandTest extends ApplicationCommandTest{
 			"command" => $comm->getName(),
 		));
 		
-// 		$this->setExpectedException('\DNSSync\Exception\DNSSyncException', "chybka");
-		$this->setExpectedException('DNSSync\Exception\DNSSyncException', "chybka");
-// 		$this->setExpectedException('DNSSyncException', "chybka");
+// 		$this->setExpectedException('\SynKnot\Exception\SynKnotException', "chybka");
+		$this->setExpectedException('SynKnot\Exception\SynKnotException', "chybka");
+// 		$this->setExpectedException('SynKnotException', "chybka");
 // 		$this->assertRegExp("/Reloading service/", $commTester->getDisplay());
 	}
 	
@@ -78,18 +78,18 @@ class ReloadCommandTest extends ApplicationCommandTest{
 		$app->add($reload);
 		$app->add(new RestartCommand());
 	
-		// 		$comm = $this->getApplication()->find("dns-sync:reload");
+		// 		$comm = $this->getApplication()->find("synknot:reload");
 		// 		$comm->addToConfig(array("ptr-user" => "spatne-ws-heslo"));
 	
-		$comm = $app->find("dns-sync:reload");
+		$comm = $app->find("synknot:reload");
 		$commTester = new CommandTester($comm);
 		$commTester->execute(array(
 			"command" => $comm->getName(),
 		));
 	
-		// 		$this->setExpectedException('\DNSSync\Exception\DNSSyncException', "chybka");
-		// 		$this->setExpectedException('DNSSync\Exception\DNSSyncException', "chybka");
-		// 		$this->setExpectedException('DNSSyncException', "chybka");
+		// 		$this->setExpectedException('\SynKnot\Exception\SynKnotException', "chybka");
+		// 		$this->setExpectedException('SynKnot\Exception\SynKnotException', "chybka");
+		// 		$this->setExpectedException('SynKnotException', "chybka");
 		$this->assertRegExp("/Reloading service/", $commTester->getDisplay());
 	}
 	*/

@@ -1,5 +1,5 @@
 <?php 
-namespace DNSSync\Application\Logger;
+namespace SynKnot\Application\Logger;
 
 use Symfony\Component\Console\Output\OutputInterface;
 class OutputInterfaceLogger implements ILogger{

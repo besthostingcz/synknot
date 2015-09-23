@@ -1,5 +1,5 @@
 <?php 
-namespace DNSSync\Application\Logger;
+namespace SynKnot\Application\Logger;
 
 class DummyLogger implements ILogger{
 	public function log($message) {

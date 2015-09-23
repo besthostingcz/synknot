@@ -1,12 +1,12 @@
 <?php 
 
-use DNSSync\Commands\ConfigCommand;
-use DNSSync\Commands\ReloadCommand;
-use DNSSync\Commands\RestartCommand;
-use DNSSync\Commands\DNSSyncCommand;
-use DNSSync\Commands\PTRSyncCommand;
+use SynKnot\Commands\ConfigCommand;
+use SynKnot\Commands\ReloadCommand;
+use SynKnot\Commands\RestartCommand;
+use SynKnot\Commands\DNSSyncCommand;
+use SynKnot\Commands\PTRSyncCommand;
 use Symfony\Component\Console\Application;
-use DNSSync\Application\DNSSyncApplication;
+use SynKnot\Application\DNSSyncApplication;
 
 class ApplicationCommandTest extends \PHPUnit_Framework_TestCase{
 	protected function getApplication(){

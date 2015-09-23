@@ -1,5 +1,5 @@
 <?php 
-namespace DNSSync\Application;
+namespace SynKnot\Application;
 
 class FileBuilder{
 	private $config;

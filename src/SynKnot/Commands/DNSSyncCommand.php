@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,14 +8,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use DNSSync\Application\DNSSynchronizer;
-use DNSSync\Application\Adapters\BestHostingDNSRecordsAdapter;
-use DNSSync\Application\FileBuilder;
+use SynKnot\Application\DNSSynchronizer;
+use SynKnot\Application\Adapters\BestHostingDNSRecordsAdapter;
+use SynKnot\Application\FileBuilder;
 
 class DNSSyncCommand extends ConfigCommand{
 
     protected function configure(){   
-        $this->setName("dns-sync:dns")
+        $this->setName("synknot:dns")
              ->setDescription("Sync DNS records to tmp directory")
 //              ->setDefinition(array(
 // 					new InputOption('only-new', 'n', InputOption::VALUE_OPTIONAL, 'Create only new records?', false),

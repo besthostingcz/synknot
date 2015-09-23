@@ -1,14 +1,14 @@
 <?php
-namespace DNSSync\Application;
+namespace SynKnot\Application;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use DNSSync\Commands\PTRSyncCommand;
-use DNSSync\Commands\DNSSyncCommand;
-use DNSSync\Commands\ReloadCommand;
-use DNSSync\Commands\RestartCommand;
-use DNSSync\Exception\DNSSyncException;
+use SynKnot\Commands\PTRSyncCommand;
+use SynKnot\Commands\DNSSyncCommand;
+use SynKnot\Commands\ReloadCommand;
+use SynKnot\Commands\RestartCommand;
+use SynKnot\Exception\SynKnotException;
 use Symfony\Component\Console\ConsoleEvents;
 
 class DNSSyncApplication extends Application{
@@ -45,7 +45,7 @@ class DNSSyncApplication extends Application{
 			fflush($fp);            // flush output before releasing the lock
 			flock($fp, LOCK_UN);    // release the lock
 		} else {
-			//throw new DNSSyncException("Running multiple instances is not allowed."); - nezachytí applikace error
+			//throw new SynKnotException("Running multiple instances is not allowed."); - nezachytí applikace error
 			//$output->writeln() - null v této chvíli
 			echo "Running multiple instances is not allowed." . PHP_EOL;
 	

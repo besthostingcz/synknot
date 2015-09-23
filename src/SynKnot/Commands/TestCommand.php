@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

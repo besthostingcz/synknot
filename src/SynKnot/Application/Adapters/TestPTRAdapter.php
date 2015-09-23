@@ -1,7 +1,7 @@
 <?php
-namespace DNSSync\Application\Adapters;
+namespace SynKnot\Application\Adapters;
 
-use DNSSync\Exception\DNSSyncException;
+use SynKnot\Exception\SynKnotException;
 
 class TestPTRAdapter extends AbstractDataAdapter{
 	public function getData(){

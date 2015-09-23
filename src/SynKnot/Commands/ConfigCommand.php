@@ -1,10 +1,10 @@
 <?php 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
-use DNSSync\Application\FileBuilder;
-use DNSSync\Exception\DNSSyncException;
+use SynKnot\Application\FileBuilder;
+use SynKnot\Exception\SynKnotException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 // use Symfony\Component\Filesystem\
@@ -56,7 +56,7 @@ abstract class ConfigCommand extends Command{//ContainerAwareCommand{
 // 		$lockDir = $this->config['lockdir'];
 		
 // 		if(is_dir($lockDir)){
-// 			throw new DNSSyncException("Running multiple instances is not allowed.");	
+// 			throw new SynKnotException("Running multiple instances is not allowed.");	
 // 		}
 		
 // 		$fb->mkdir($lockDir);

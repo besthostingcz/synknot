@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,14 +8,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use DNSSync\Application\DNSSynchronizer;
-use DNSSync\Exception\DNSSyncException;
-use DNSSync\Application\FileBuilder;
+use SynKnot\Application\DNSSynchronizer;
+use SynKnot\Exception\SynKnotException;
+use SynKnot\Application\FileBuilder;
 
 class RestartCommand extends ConfigCommand{
 
     protected function configure(){   
-        $this->setName("dns-sync:restart")
+        $this->setName("synknot:restart")
              ->setDescription("Sync DNS and PTR records + restart service")
 //              ->setDefinition(array(
 //                       new InputOption('start', 's', InputOption::VALUE_OPTIONAL, 'Start number of the range of Fibonacci number', $start),
@@ -28,10 +28,10 @@ class RestartCommand extends ConfigCommand{
 //         $start = intval($input->getOption('start'));
 //         $stop  = intval($input->getOption('stop'));
 
-    	$dnsCommand = $this->getApplication()->find('dns-sync:dns');
+    	$dnsCommand = $this->getApplication()->find('synknot:dns');
     	$dnsCommand->run($input, $output);
 
-    	$ptrCommand = $this->getApplication()->find('dns-sync:ptr');
+    	$ptrCommand = $this->getApplication()->find('synknot:ptr');
     	$ptrCommand->run($input, $output);
 		
 		$fileBuilder = new FileBuilder($this->config);

@@ -1,7 +1,7 @@
 <?php 
-namespace DNSSync\Application;
+namespace SynKnot\Application;
 
-use DNSSync\Exception\MissingSOAException;
+use SynKnot\Exception\MissingSOAException;
 
 class DNSBuilder{
 	private $records = array();

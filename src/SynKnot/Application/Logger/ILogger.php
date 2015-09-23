@@ -1,5 +1,5 @@
 <?php 
-namespace DNSSync\Application\Logger;
+namespace SynKnot\Application\Logger;
 
 interface ILogger{
 	public function log($message);

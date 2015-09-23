@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Application\Adapters;
+namespace SynKnot\Application\Adapters;
 
 abstract class AbstractDataAdapter implements IAdapter{
 	protected $config = array();

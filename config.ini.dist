@@ -41,8 +41,8 @@ lockfile = /var/lock/dns-sync.lock
 logfile = /var/log/knotsync-log.log
 
 ; DataAdapers - DNSRecords and PTR
-data-adapter.dns-records = DNSSync\Application\Adapters\TestDNSRecordsAdapter
-data-adapter.ptr-records = DNSSync\Application\Adapters\TestPTRAdapter
+data-adapter.dns-records = SynKnot\Application\Adapters\TestDNSRecordsAdapter
+data-adapter.ptr-records = SynKnot\Application\Adapters\TestPTRAdapter
 
 ; TTL for PTR
 ptr-ttl = 86400

@@ -1,6 +1,6 @@
 <?php
 
-namespace DNSSync\Commands;
+namespace SynKnot\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,18 +8,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use DNSSync\Application\DNSSynchronizer;
-use DNSSync\Exception\DNSSyncException;
-use DNSSync\Application\Adapters\BestHostingPTRAdapter;
-use DNSSync\Application\Adapters\BestHostingDNSRecordsAdapter;
-use DNSSync\Commands\ConfigCommand;
-use DNSSync\Application\FileBuilder;
-use DNSSync\Application\Logger\OutputInterfaceLogger;
+use SynKnot\Application\DNSSynchronizer;
+use SynKnot\Exception\SynKnotException;
+use SynKnot\Application\Adapters\BestHostingPTRAdapter;
+use SynKnot\Application\Adapters\BestHostingDNSRecordsAdapter;
+use SynKnot\Commands\ConfigCommand;
+use SynKnot\Application\FileBuilder;
+use SynKnot\Application\Logger\OutputInterfaceLogger;
 
 class PTRSyncCommand extends ConfigCommand {
 
     protected function configure(){   
-        $this->setName("dns-sync:ptr")
+        $this->setName("synknot:ptr")
              ->setDescription("Sync PTR records to tmp directory")
 //              ->setDefinition(array(
 //                       new InputOption('start', 's', InputOption::VALUE_OPTIONAL, 'Start number of the range of Fibonacci number', $start),
@@ -38,7 +38,7 @@ class PTRSyncCommand extends ConfigCommand {
 			$ptrDataAdapter = $this->config["data-adapter.ptr-records"];
 			$dnsSynchronizer->createPTRRecords(new $ptrDataAdapter($this->config));
 			
-//		}catch (DNSSyncException $e){
+//		}catch (SynKnotException $e){
 //         	echo $e->getMessage();
 //         }catch (Exception $e){
 //         	echo $e->getMessage();

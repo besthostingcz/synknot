@@ -1,5 +1,5 @@
 <?php 
-namespace DNSSync\Application\Adapters;
+namespace SynKnot\Application\Adapters;
 
 interface IAdapter{
 	public function getData();
