@@ -2,8 +2,8 @@
 SynKnot utility for DNS and PTR synchronization with Knot
 
 Prerequisites:
- - own DNS Knot server (https://www.knot-dns.cz/)
- - own database of DNS records
+ - own Knot DNS server (https://www.knot-dns.cz/)
+ - own database of DNS and PTR records
  - PHP and GIT support on the DNS server
 
 How to deploy SynKnot:
@@ -13,7 +13,7 @@ How to deploy SynKnot:
  - "cd /opt/synknot/"
  - "cp ./config.ini.dist ./config.ini"
  - change your preferences in the config.ini file
- - "cd ./src/DNSSync/Application/Adapters/"
+ - "cd ./src/SynKnot/Application/Adapters/"
  - "cp ./TestDNSRecordAdapter.php ./MyOwnDNSRecordAdapter.php"
  - "cp ./TestPTRAdapter.php ./MyOwnPTRAdapter.php"
  - edit the adapters, that they can return lists of DNS / PTR
