@@ -1,16 +1,16 @@
-# synknot
-SynKnot utility for DNS and PTR synchronization with Knot
+# SynKnot
+SynKnot utility for DNS and PTR synchronization with Knot DNS server
 
 Prerequisites:
  - own Knot DNS server (https://www.knot-dns.cz/)
- - own database of DNS and PTR records
- - PHP and GIT support on the DNS server
+ - own database of DNS and PTR records (or other kind of storage)
+ - PHP-cli and GIT support on the DNS server
 
 How to deploy SynKnot:
  - ssh to your DNS server
- - "cd /opt/"
- - "git clone https://github.com/besthostingcz/synknot.git"
- - "cd /opt/synknot/"
+ - "*cd /opt/*"
+ - "*git clone https://github.com/besthostingcz/synknot.git*"
+ - "*cd /opt/synknot/*"
  - "cp ./config.ini.dist ./config.ini"
  - change your preferences in the config.ini file
  - "cd ./src/SynKnot/Application/Adapters/"
