@@ -18,9 +18,9 @@ SynKnot utility for DNS and PTR synchronization with Knot DNS server
  - ```cp ./TestPTRAdapter.php ./MyOwnPTRAdapter.php```
  - edit the adapters, that they can return lists of DNS / PTR
  - link your new adapters at config.ini
- - ```cd /opt/synknot/```"
+ - ```cd /opt/synknot/```
  - run SynKnot synchronization: ```php ./dns-sync.php dns-sync:reload```
 
-For more commands, you can use standard Symfony console "php /opt/synknot/dns-sync.php"
+For more commands, you can use standard Symfony console ```php /opt/synknot/dns-sync.php```
 
 More infomation about this project could be found at http://synknot.cz/. Don't hesitate to ask :)
