@@ -8,7 +8,7 @@ Prerequisites:
 
 How to deploy SynKnot:
  - ssh to your DNS server
- - **cd /opt/**
+ - ```bash cd /opt/```
  - **git clone https://github.com/besthostingcz/synknot.git**
  - **cd /opt/synknot/**
  - **cp ./config.ini.dist ./config.ini**
