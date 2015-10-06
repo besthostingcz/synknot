@@ -22,3 +22,5 @@ How to deploy SynKnot:
  - run SynKnot synchronization: "php ./dns-sync.php dns-sync:reload"
 
 For more commands, you can use standard Symfony console "php /opt/synknot/dns-sync.php"
+
+More infomation about this project could be found at http://synknot.cz/. Don't hesitate to ask :)
