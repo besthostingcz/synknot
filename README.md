@@ -23,4 +23,4 @@ SynKnot utility for DNS and PTR synchronization with Knot DNS server
 
 For more commands, you can use standard Symfony console ```php /opt/synknot/dns-sync.php```
 
-More infomation about this project could be found at http://synknot.cz/. Don't hesitate to ask :)
+More infomation about this project could be found at http://synknot.cz/ or directly on the [page with the tutorial](http://synknot.cz/step-by-step-to-install-synknot/). Don't hesitate to ask :)
