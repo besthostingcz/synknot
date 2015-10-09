@@ -10,6 +10,7 @@ use SynKnot\Commands\ReloadCommand;
 use SynKnot\Commands\RestartCommand;
 use SynKnot\Exception\SynKnotException;
 use Symfony\Component\Console\ConsoleEvents;
+use SynKnot\Commands\TestCommand;
 
 class DNSSyncApplication extends Application{
 	private $config = array();
@@ -30,6 +31,7 @@ class DNSSyncApplication extends Application{
 		$this->add(new PTRSyncCommand($this->config));
 		$this->add(new ReloadCommand($this->config));
 		$this->add(new RestartCommand($this->config));
+		$this->add(new TestCommand($this->config));
 	}
 	
 	public function run(InputInterface $input = null, OutputInterface $output = null){

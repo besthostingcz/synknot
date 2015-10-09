@@ -9,68 +9,94 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
-class TestCommand extends Command {
+class TestCommand extends ConfigCommand{
 
     protected function configure()
     {   
         $start = 0;
         $stop = 100;
 
-        $this->setName("phpmaster:fibonacci")
-             ->setDescription("Display the fibonacci numbers between 2 given numbers")
-             ->setDefinition(array(
-                      new InputOption('start', 's', InputOption::VALUE_OPTIONAL, 'Start number of the range of Fibonacci number', $start),
-                      new InputOption('stop', 'e', InputOption::VALUE_OPTIONAL, 'stop number of the range of Fibonacci number', $stop)
-                ))
-             ->setHelp(<<<EOT
-Display the fibonacci numbers between a range of numbers given as parameters
-
-Usage:
-
-<info>php console.php phpmaster:fibonacci 2 18 <env></info>
-
-You can also specify just a number and by default the start number will be 0
-<info>php console.php phpmaster:fibonacci 18 <env></info>
-
-If you don't specify a start and a stop number it will set by default [0,100]
-<info>php console.php phpmaster:fibonacci<env></info>
-EOT
-);
+        $this->setName("synknot:test")
+             ->setDescription("Testing the adapters, if they return right values.");
+//              ->setDefinition(array(
+//                       new InputOption('start', 's', InputOption::VALUE_OPTIONAL, 'Start number of the range of Fibonacci number', $start),
+//                       new InputOption('stop', 'e', InputOption::VALUE_OPTIONAL, 'stop number of the range of Fibonacci number', $stop)
+//                 ))
+//              ->setHelp();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output){
+    	$dnsAdapterClass = $this->getConfigValue("data-adapter.dns-records");
+    	$dnsAdapter = new $dnsAdapterClass($this->config);
+    	$dnsData = $dnsAdapter->getData();
+    	
+    	if(count($dnsData) < 1){
+    		$output->writeln('Error: DNS data count is smaller then 1');
+    	}else{
+	    	$output->writeln(sprintf('There are %1$s DNS zones', count($dnsData)));
+    	}
 
-        $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
-        $output->getFormatter()->setStyle('header', $header_style);
+    	$zoneFieldsOk = true;
+		$fields = array('domainName', 'dnssec', 'name', 'type', 'content', 'ttl', 'priority');
+    	foreach ($dnsData as $zoneKey => $dnsZone){
+    		foreach ($dnsZone as $recordKey => $dnsRecord){
+	    		foreach ($fields as $field){
+		    		if(!isset($dnsRecord[$field])){
+		    			$zoneFieldsOk = false;
+		    			$output->writeln(sprintf('Missing field %1$s in DNS zone %2$s, record %3$s', $field, $zoneKey, $recordKey));
+		    		}
+	    		}
+    		}
+    	}
+    	
+    	if($zoneFieldsOk){
+			$output->writeln('Required fields in DNS records are ok');    		
+    	}
+    	
+		// PTR simple test    	
+    	$ptrAdapterClass = $this->getConfigValue("data-adapter.ptr-records");
+    	$ptrAdapter = new $ptrAdapterClass($this->config);
+    	
+    	$ptrData = $ptrAdapter->getData();
+    	
 
-        $start = intval($input->getOption('start'));
-        $stop  = intval($input->getOption('stop'));
-
-        if ( ($start >= $stop) || ($start < 0) ) {
-           throw new \InvalidArgumentException('Stop number should be greater than start number');
-        }
-
-        $output->writeln('<header>Fibonacci numbers between '.$start.' - '.$stop.'</header>');
-
-        $xnM2 = 0; // set x(n-2)
-        $xnM1 = 1;  // set x(n-1)
-        $xn = 0; // set x(n)
-        $totalFiboNr = 0;
-        while ($xnM2 <= $stop)
-        {
-            if($xnM2 >= $start)  {
-                $output->writeln('<header>'.$xnM2.'</header>');
-                $totalFiboNr++;
-            }
-            $xn = $xnM1 + $xnM2;
-            $xnM2 = $xnM1;
-            $xnM1 = $xn;
-
-        }
-        $output->writeln('<header>Total of Fibonacci numbers found = '.$totalFiboNr.' </header>');
+    	if(count($ptrData) < 1){
+    		$output->writeln('Error: PTR data count is smaller then 1');
+    	}else{
+    		$output->writeln(sprintf('There are %1$s PTR records', count($ptrData)));
+    	}
+    	 
+    	$ptrFieldsOk = true;
+    	$fields = array('ip', 'ptr');
+		foreach ($ptrData as $ptrKey => $ptr){
+			foreach ($fields as $field){
+				if(!isset($ptr[$field])){
+					$ptrFieldsOk = false;
+					$output->writeln(sprintf('Missing field %1$s in PTR record %2$s', $field, $ptrKey));
+				}
+			}
+		}
+		
+    	if($ptrFieldsOk){
+			$output->writeln('Required fields in PTR records are ok');    		
+    	}
     }
+    
+//     private function hasArray
 }
 
+//         $header_style = new OutputFormatterStyle('white', 'green', array('bold'));
+//         $output->getFormatter()->setStyle('header', $header_style);
+
+//         $start = intval($input->getOption('start'));
+//         $stop  = intval($input->getOption('stop'));
+
+//         if ( ($start >= $stop) || ($start < 0) ) {
+//            throw new \InvalidArgumentException('Stop number should be greater than start number');
+//         }
+
+//         $output->writeln('<header>Fibonacci numbers between '.$start.' - '.$stop.'</header>');
+		
 
 //volání jiných příkazů
 /*
