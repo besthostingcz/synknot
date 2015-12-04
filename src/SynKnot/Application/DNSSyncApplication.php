@@ -36,7 +36,13 @@ class DNSSyncApplication extends Application{
 	
 	public function run(InputInterface $input = null, OutputInterface $output = null){
 		$fp = fopen($this->config['lockfile'], "w");
-		
+
+		// if you run this script as root - change user/group
+		if (file_exists($this->config['lockfile'])) {
+			chown($this->config['lockfile'], $this->config['file-user']);
+			chgrp($this->config['lockfile'], $this->config['file-group']);
+		}
+	
 		$exitCode = 0;
 		
 		if (flock($fp, LOCK_EX | LOCK_NB)) {  // acquire an exclusive lock
@@ -47,10 +53,12 @@ class DNSSyncApplication extends Application{
 			fflush($fp);            // flush output before releasing the lock
 			flock($fp, LOCK_UN);    // release the lock
 		} else {
-			//throw new SynKnotException("Running multiple instances is not allowed."); - nezachytí applikace error
+			//throw new DNSSyncException("Running multiple instances is not allowed."); - nezachytí applikace error
 			//$output->writeln() - null v této chvíli
-			echo "Running multiple instances is not allowed." . PHP_EOL;
-	
+			$message = "Running multiple instances is not allowed.";
+			echo $message . PHP_EOL;
+			mail($this->config['admin-email'], $message, $message);
+			
 			$exitCode = 500;
 		}
 

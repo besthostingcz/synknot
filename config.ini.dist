@@ -12,6 +12,9 @@ path-zones-tmp = /var/lib/knot/knot.conf.zones.tmp
 file-user = knot
 file-group = knot
 
+;your email for reports
+admin-email = info@testdomain.com
+
 ; master vs. slave option
 server-status = master
 server-master = master

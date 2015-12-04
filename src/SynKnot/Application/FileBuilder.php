@@ -29,11 +29,18 @@ class FileBuilder{
 		chgrp($path, $group);
 	}
 
-	public function clearDirectory($path){
+	public function clearDirectory($path, $patterns = null){
+		if(is_null($patterns)){
+			$patterns = array('*.zone', '*.checksum');
+		}
+		$pathPatterns = array();
+		foreach ($patterns as $pattern){
+			$pathPatterns[] = $path . $pattern;
+		}
 // 		if(is_dir($path)){
 // var_dump($path);
 		if(file_exists($path)){
-			foreach (glob("{" . $path . "*.zone," . $path . "*.checksum}", GLOB_BRACE) as $filename) {
+			foreach (glob("{" . implode(",", $pathPatterns) . "}", GLOB_BRACE) as $filename) {
 				if (is_file($filename)) {
 // 					var_dump($filename);
 					unlink($filename);
