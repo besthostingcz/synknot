@@ -35,6 +35,10 @@ class RestartCommand extends ConfigCommand{
     	$ptrCommand->run($input, $output);
 		
 		$fileBuilder = new FileBuilder($this->config);
+		if(is_dir($this->config['path-timers'])){
+			$fileBuilder->clearDirectory($this->config['path-timers'], array('*.mdb'));
+		}
+		
 		//přesun nových záznamů
 		$fileBuilder->clearDirectory($this->config['path-pri-backup']);
 		$fileBuilder->moveDirectory($this->config['path-pri'], $this->config['path-pri-backup']);
