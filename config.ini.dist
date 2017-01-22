@@ -1,10 +1,10 @@
 ; directory for PRI records
-path-pri = /var/lib/knot/pri/
-path-pri-tmp = /var/lib/knot/pri-tmp/
-path-pri-backup = /var/lib/knot/pri-backup/
+path-pri = /var/lib/knot/zones/
+path-pri-tmp = /var/lib/knot/zones-tmp/
+path-pri-backup = /var/lib/knot/zones-backup/
 
 ; file for PRI records list
-path-zones = /var/lib/knot/knot.conf.zones
+path-zones = /etc/knot/knot.conf.zones
 path-zones-backup = /var/lib/knot/knot.conf.zones.bak
 path-zones-tmp = /var/lib/knot/knot.conf.zones.tmp
 
@@ -36,9 +36,9 @@ path-ptr-tmp = /var/lib/knot/ptr-tmp/
 path-ptr-backup = /var/lib/knot/ptr-backup/
 
 ; file for PTR record list
-path-zones-ptr = /etc/knot/knot.ptr.conf.zones
-path-zones-ptr-backup = /etc/knot/knot.ptr.conf.zones.bak
-path-zones-ptr-tmp = /etc/knot/knot.ptr.conf.zones.tmp
+path-zones-ptr = /etc/knot/knot.conf.ptr.zones
+path-zones-ptr-backup = /etc/knot/knot.conf.ptr.zones.bak
+path-zones-ptr-tmp = /etc/knot/knot.conf.ptr.zones.tmp
 
 ; single instance locking
 lockfile = /var/lock/dns-sync.lock

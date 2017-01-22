@@ -1,6 +1,8 @@
 <?php 
 namespace SynKnot\Application;
 
+use SynKnot\Exception\SynKnotException;
+
 class FileBuilder{
 	private $config;
 	
@@ -109,5 +111,18 @@ class FileBuilder{
 		$group = $this->config['file-group'];
 		chown($path, $user);
 		chgrp($path, $group);
+	}
+	
+	public function symlink($target, $link){
+		if(!file_exists($target) && !is_dir($target)){
+			throw new SynKnotException(sprintf('File or directory "%1$s" not found', $target));
+		}
+
+		if(file_exists($link) || is_dir($link)){
+			//skipping
+			return;
+		}
+		
+		symlink($target, $link);
 	}
 }

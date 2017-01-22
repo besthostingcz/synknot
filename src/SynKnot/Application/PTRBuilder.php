@@ -4,7 +4,7 @@ namespace SynKnot\Application;
 class PTRBuilder{
 	private $records = array();
 	private $config;
-	private $zoneList = "";
+	private $zoneList = "zone: \n";
 	
 	public function __construct(array $config){
 		$this->config = $config;
@@ -50,16 +50,21 @@ class PTRBuilder{
 		
 		$dnsSec = "dnssec-enable off;";	
 		
-		switch($this->config["server-status"]){
-			case "slave":
-				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
-				break;
-			case "master":
-				$serverStatus = "xfr-out " . implode(",", $this->config["server-slaves-ip"]) . ";\n\tnotify-out " . implode(",", $this->config["server-slaves"]) . ";";
-				break;
-		}
+// 		switch($this->config["server-status"]){
+// 			case "slave":
+// 				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
+// 				break;
+// 			case "master":
+// 				$serverStatus = "xfr-out " . implode(",", $this->config["server-slaves-ip"]) . ";\n\tnotify-out " . implode(",", $this->config["server-slaves"]) . ";";
+// 				$serverStatus = "xfr-out " . implode(",", $this->config["server-slaves-ip"]) . ";\n\tnotify-out " . implode(",", $this->config["server-slaves"]) . ";";
+// 				break;
+// 		}
 		
-		$this->zoneList .= sprintf("%s{\n\tfile \"%s.zone\";\n\t%s\n\t%s\n}", $ptrGroup, $this->config['path-ptr'] . $ptrGroup, $dnsSec, $serverStatus) . PHP_EOL . PHP_EOL;
+// 		$this->zoneList .= sprintf("%s{\n\tfile \"%s.zone\";\n\t%s\n\t%s\n}", 
+// 							$ptrGroup, $this->config['path-ptr'] . $ptrGroup, 
+// 							$dnsSec, $serverStatus) . PHP_EOL . PHP_EOL;
+		$this->zoneList .= sprintf("   - domain: %s \n     template: ptr", 
+							$ptrGroup) . PHP_EOL . PHP_EOL;
 		return $content;
 	}
 

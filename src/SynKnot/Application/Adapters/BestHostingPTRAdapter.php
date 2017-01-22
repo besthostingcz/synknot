@@ -7,9 +7,9 @@ class BestHostingPTRAdapter extends AbstractDataAdapter{
 		$data = array();
 
 		$curl = curl_init();
-		$user = $this->config['ptr-user'];
-		$password = $this->config['ptr-password'];
-		$url = $this->config['ptr-url'];
+		$user = $this->getFromConfig($this->config, 'ptr-user');
+		$password = $this->getFromConfig($this->config, 'ptr-password');
+		$url = $this->getFromConfig($this->config, 'ptr-url');
 		
 		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_setopt($curl, CURLOPT_USERPWD, $user . ":" . $password);
@@ -38,5 +38,13 @@ class BestHostingPTRAdapter extends AbstractDataAdapter{
 		}
 		
 		return $data;
+	}
+	
+	private function getFromConfig($config, $key){
+		if(!isset($config[$key])){
+			throw new SynKnotException(sprintf('Option "%1$s" does not exits within config', $key));
+		}
+		
+		return $config[$key];
 	}
 }

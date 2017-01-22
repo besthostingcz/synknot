@@ -7,7 +7,7 @@ class DNSBuilder{
 	private $records = array();
 	private $recordsNoTTL = array();
 	private $domainName;
-	private $zoneList = "";
+	private $zoneList = "zone: \n";
 	private $config = array();
 
 	public function __construct(array $config){
@@ -73,32 +73,37 @@ class DNSBuilder{
 		$dnssecValue = $dnssec == "1" ? "on" : "off";
 		$dnssecText = sprintf('dnssec-enable %1$s;', $dnssecValue);
 		
-		switch($this->config["server-status"]){
-			case "slave":
-				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
-				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
-					$this->getDomainName(),
-					$priPath,
-					$this->getDomainName(),
-					$serverStatus,
-					$dnssecText
-				) . PHP_EOL;
-				break;
+// 		switch($this->config["server-status"]){
+// 			case "slave":
+// 				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
+// 				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
+// 					$this->getDomainName(),
+// 					$priPath,
+// 					$this->getDomainName(),
+// 					$serverStatus,
+// 					$dnssecText
+// 				) . PHP_EOL;
+// 				break;
 				
-			case "master":
-				$serverStatus = "xfr-out " . implode(",", $this->config["server-slaves-ip"]) . ";\n\tnotify-out " . implode(",", $this->config["server-slaves"]) . ";";
-				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
-					$this->getDomainName(),
-					$priPath,
-					$this->getDomainName(),
-					$serverStatus,
-					$dnssecText
-				) . PHP_EOL;
-				break;
-				
-			case "default":
-				$this->zoneList .= "server-status is incorrect";
-		}
+// 			case "master":
+// 				$serverStatus = "xfr-out " . implode(",", $this->config["server-slaves-ip"]) . ";\n\tnotify-out " . implode(",", $this->config["server-slaves"]) . ";";
+// 				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
+// 					$this->getDomainName(),
+// 					$priPath,
+// 					$this->getDomainName(),
+// 					$serverStatus,
+// 					$dnssecText
+// 				) . PHP_EOL;
+// 				break;
+
+// 			case "default":
+// 				$this->zoneList .= "server-status is incorrect";
+
+// 		}
+
+		$this->zoneList .= sprintf('  - domain: %s',
+			$this->getDomainName()
+		) . PHP_EOL . PHP_EOL;
 	}
 
 	// 	public function buildGroup($name, array $records){
