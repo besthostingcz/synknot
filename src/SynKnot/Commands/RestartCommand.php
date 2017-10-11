@@ -34,6 +34,7 @@ class RestartCommand extends ConfigCommand{
     	$ptrCommand = $this->getApplication()->find('synknot:ptr');
     	$ptrCommand->run($input, $output);
 		
+    //promazani timers 
 		$fileBuilder = new FileBuilder($this->config);
 		if(is_dir($this->config['path-timers'])){
 			$fileBuilder->clearDirectory($this->config['path-timers'], array('*.mdb'));
