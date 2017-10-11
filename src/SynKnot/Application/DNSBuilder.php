@@ -101,9 +101,11 @@ class DNSBuilder{
 
 // 		}
 
-		$this->zoneList .= sprintf('  - domain: %s',
+		$this->zoneList .= sprintf("  - domain: %s",
+// 		$this->zoneList .= sprintf("  - domain: %s\n    template: signed",
 			$this->getDomainName()
-		) . PHP_EOL . PHP_EOL;
+		);
+		$this->zoneList .= PHP_EOL . PHP_EOL;
 	}
 
 	// 	public function buildGroup($name, array $records){
