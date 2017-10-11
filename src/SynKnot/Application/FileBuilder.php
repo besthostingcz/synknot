@@ -38,6 +38,7 @@ class FileBuilder{
 		$pathPatterns = array();
 		foreach ($patterns as $pattern){
 			$pathPatterns[] = $path . $pattern;
+			$pathPatterns[] = $path . 'checksum/' . $pattern;
 		}
 // 		if(is_dir($path)){
 // var_dump($path);
@@ -45,19 +46,23 @@ class FileBuilder{
 			foreach (glob("{" . implode(",", $pathPatterns) . "}", GLOB_BRACE) as $filename) {
 				if (is_file($filename)) {
 // 					var_dump($filename);
+// 					var_dump('unlink ' . $filename);
 					unlink($filename);
 				}
 			}
-			rmdir($path);
+			//rmdir($path);
 // 			var_dump($path);
 			
 // 			$this->moveDirectory($path, "/tmp/knot" . sha1(rand(100000, 1000000)));
-		}else{
-			$this->mkdir($path);
 		}
+// 		else{
+// 			$this->mkdir($path);
+// 		}
 	}
 	
 	public function moveDirectory($source, $destination){
+		$this->testValidDir($source);
+		$this->testValidDir($destination);
 // 		var_dump($destination);
 		//$source = "/tmp/knot/pri-tmp/"
 		//$destination = "/tmp/knot/ptr/"
@@ -66,10 +71,16 @@ class FileBuilder{
 		if(file_exists($source)){
 			//kontrola cílového adresáře
 			if(file_exists($destination)){
+				//vytvoreni adresare pro checksum
+				$destinationChecksumDir = $destination . 'checksum/';
+				if(!is_dir($destinationChecksumDir)){
+					mkdir($destinationChecksumDir);
+				}
+				
 				foreach (glob($source . "*") as $filename) {
 					//pokud nejsou souubory změněny, tak je nepřepisovat
 					$destinationFile = $destination . basename($filename); 
-					$destinationFileCheckSum = $destinationFile . ".checksum"; 
+					$destinationFileCheckSum = $destinationChecksumDir . basename($filename) . ".checksum"; 
 					//existuje zdrojový soubor
 					if(file_exists($filename)){
 						//die($filename); //	/tmp/knot/pri-tmp/1000webu.cz.zone
@@ -95,12 +106,12 @@ class FileBuilder{
 				}
 			}else{
 // 				var_dump(array($source, $destination));
-				//
+				//cilovy adresar neexistuje, tak je mozne ho rovnou presunout
 				rename($source, $destination);
 			}
 		}
-		$this->mkdir($source);
-// 		$this->mkdir($destination); // ?
+// 		$this->mkdir($source);
+		$this->mkdir($destination); // ?
 	}
 	
 	public function mkdir($path, $rights = 0770, $recure = true){
@@ -124,5 +135,11 @@ class FileBuilder{
 		}
 		
 		symlink($target, $link);
+	}
+	
+	private function testValidDir($dir){
+		if(substr($dir, -1) != '/'){
+			throw new SynKnotException(sprintf('Directory path has to end with slash %1$s', $dir));
+		}
 	}
 }
