@@ -1,8 +1,16 @@
 {
-	"name" : "dns-sync",
-	"description" : "knot DNS synchronizer",
+	"name" : "besthostingcz/synknot",
+	"description" : "Knot DNS Synchronizer",
+	"license" : "MIT",
+	"type" : "project",
+	"authors" : [
+	  {
+      "name" : "Tomas Novotny",
+      "homepage" : "https://best-hosting.cz/"
+    }
+  ],
 	"require" : {
-		"symfony/console" : "~2.6",
+		"symfony/console" : "~3.3",
 		"psr/log" : "~1.0"
 	},
 	"autoload" : {
