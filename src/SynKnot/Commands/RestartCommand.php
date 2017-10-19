@@ -37,6 +37,7 @@ class RestartCommand extends ConfigCommand{
     //promazani timers 
 		$fileBuilder = new FileBuilder($this->config);
 		if(is_dir($this->config['path-timers'])){
+			$output->writeln(sprintf('Clearing timers directory %1$s.', $this->config['path-timers']));
 			$fileBuilder->clearDirectory($this->config['path-timers'], array('*.mdb'));
 		}
 		

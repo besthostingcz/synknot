@@ -9,7 +9,7 @@ path-zones-backup = /var/lib/knot/knot.conf.zones.bak
 path-zones-tmp = /var/lib/knot/knot.conf.zones.tmp
 
 ; directory with the knot timers
-path-timers = /var/lib/knot/timers/
+path-timers = /var/lib/knot/zones/timers/
 
 ; user and group, that owns configuration
 file-user = knot

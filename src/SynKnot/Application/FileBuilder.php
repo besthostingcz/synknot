@@ -32,16 +32,22 @@ class FileBuilder{
 	}
 
 	public function clearDirectory($path, $patterns = null){
+		$pathChecksum = $path . 'checksum/';
+		$pathTimers = $path . 'timers/';
+		
 		if(is_null($patterns)){
-			$patterns = array('*.zone', '*.checksum');
+			$patterns = array('*.zone', '*.checksum', '*.mdb');
 		}
+		
 		$pathPatterns = array();
 		foreach ($patterns as $pattern){
 			$pathPatterns[] = $path . $pattern;
-			$pathPatterns[] = $path . 'checksum/' . $pattern;
+			$pathPatterns[] = $pathChecksum . $pattern;
+			$pathPatterns[] = $pathTimers . $pattern;
 		}
 // 		if(is_dir($path)){
 // var_dump($path);
+// 		var_dump($patterns);
 		if(file_exists($path)){
 			foreach (glob("{" . implode(",", $pathPatterns) . "}", GLOB_BRACE) as $filename) {
 				if (is_file($filename)) {
@@ -50,7 +56,21 @@ class FileBuilder{
 					unlink($filename);
 				}
 			}
-			//rmdir($path);
+			
+			//checksum directory
+			if(is_dir($pathChecksum)){
+				$this->testEmptyDir($pathChecksum);
+				rmdir($pathChecksum);
+			}
+
+			//timers directory
+			if(is_dir($pathTimers)){
+				$this->testEmptyDir($pathTimers);
+				rmdir($pathTimers);
+			}
+			
+			$this->testEmptyDir($path);
+			rmdir($path);
 // 			var_dump($path);
 			
 // 			$this->moveDirectory($path, "/tmp/knot" . sha1(rand(100000, 1000000)));
@@ -81,20 +101,24 @@ class FileBuilder{
 					//pokud nejsou souubory změněny, tak je nepřepisovat
 					$destinationFile = $destination . basename($filename); 
 					$destinationFileCheckSum = $destinationChecksumDir . basename($filename) . ".checksum"; 
-					//existuje zdrojový soubor
+
+					//pokud existuje zdrojový soubor
 					if(file_exists($filename)){
 						//die($filename); //	/tmp/knot/pri-tmp/1000webu.cz.zone
 						
 						//existuje vůbec původní?
-						if(file_exists($destinationFileCheckSum)){ //		/tmp/knot/pri-tmp/1000webu.cz.zone
+						if(file_exists($destinationFile)){ //		/tmp/knot/pri-tmp/1000webu.cz.zone
 							//die($destinationFile . PHP_EOL); 
-							//jsou oba stejné - rozdílné?
-							if(md5_file($filename) != file_get_contents($destinationFileCheckSum)){
+							//existuje cílový soubor a je zdrojový a cílový podle checksum rozdílný?
+							if(!is_file($destinationFileCheckSum) || md5_file($filename) != file_get_contents($destinationFileCheckSum)){
+								//přepiš zdrojový na cílový
 								rename($filename, $destinationFile);
+								//unlink() - smazat checksum zdrojový
+								//vytvoř checksum
 								$this->saveContent(md5_file($destinationFile), $destinationFileCheckSum);
 							}else{
+								//jsou stejné, tak unlink toho starého
 								unlink($filename);
-								//jsou stejné, tak unlink toho nového
 							}
 						}else{
 							//nemusí existovat cílový a stejně se přepíše
@@ -111,6 +135,7 @@ class FileBuilder{
 			}
 		}
 // 		$this->mkdir($source);
+		//cilovy adresar neexistuje, tak ho vytvorime
 		$this->mkdir($destination); // ?
 	}
 	
@@ -140,6 +165,16 @@ class FileBuilder{
 	private function testValidDir($dir){
 		if(substr($dir, -1) != '/'){
 			throw new SynKnotException(sprintf('Directory path has to end with slash %1$s', $dir));
+		}
+	}
+	
+	private function testEmptyDir($dir){
+		if(!is_dir($dir)){
+			throw new SynKnotException(sprintf('Directory does not exist %1$s', $dir));
+		}
+		
+		if(count(scandir($dir)) != 2){
+			throw new SynKnotException(sprintf('Directory is not empty %1$s', $dir));
 		}
 	}
 }
