@@ -9,7 +9,7 @@ SynKnot utility for DNS and PTR synchronization with Knot DNS server
 **How to deploy SynKnot**
  - ssh to your DNS server
  - ```cd /opt/```
- - ```git clone https://github.com/besthostingcz/synknot.git```
+ - ```git clone https://github.com/besthostingcz/synknot.git synknot```
  - ```cd /opt/synknot/```
  - ```cp ./config.ini.dist ./config.ini```
  - change your preferences in the config.ini file
@@ -19,6 +19,10 @@ SynKnot utility for DNS and PTR synchronization with Knot DNS server
  - edit the adapters, that they can return lists of DNS / PTR
  - link your new adapters at config.ini
  - ```cd /opt/synknot/```
+ - allow exec function in php.ini
+ - ```php -i | grep ini ```
+ - ```vim /path/to/your/php.ini ```
+ - remove exec function from disable_function property
  - run SynKnot synchronization: ```php ./dns-sync.php dns-sync:reload```
 
 For more commands, you can use standard Symfony console ```php /opt/synknot/dns-sync.php```
