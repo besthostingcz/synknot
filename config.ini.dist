@@ -36,9 +36,9 @@ path-ptr-tmp = /var/lib/knot/ptr-tmp/
 path-ptr-backup = /var/lib/knot/ptr-backup/
 
 ; file for PTR record list
-path-zones-ptr = /etc/knot/knot.conf.ptr.zones
-path-zones-ptr-backup = /etc/knot/knot.conf.ptr.zones.bak
-path-zones-ptr-tmp = /etc/knot/knot.conf.ptr.zones.tmp
+path-zones-ptr = /var/lib/knotknot.conf.ptr.zones
+path-zones-ptr-backup = /var/lib/knot/knot.conf.ptr.zones.bak
+path-zones-ptr-tmp = /var/lib/knot/knot.conf.ptr.zones.tmp
 
 ; single instance locking
 lockfile = /var/lock/dns-sync.lock
