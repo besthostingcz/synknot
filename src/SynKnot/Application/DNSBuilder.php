@@ -75,13 +75,18 @@ class DNSBuilder{
 		
 		switch($this->config["server-status"]){
 			case "slave":
-				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
-				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
+// 				$serverStatus = "xfr-in " . $this->config["server-master"] . ";\n\tnotify-in " . $this->config["server-master"] . ";";
+// 				$this->zoneList .= sprintf("%s {\n\tfile \"%s%s.zone\";\n\t%s\n\t%s\n}\n",
+// 						$this->getDomainName(),
+// 						$priPath,
+// 						$this->getDomainName(),
+// 						$serverStatus,
+// 						$dnssecText
+// 						) . PHP_EOL;
+				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n",
 						$this->getDomainName(),
 						$priPath,
-						$this->getDomainName(),
-						$serverStatus,
-						$dnssecText
+						$this->getDomainName()
 						) . PHP_EOL;
 						break;
 						
