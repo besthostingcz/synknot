@@ -83,9 +83,10 @@ class DNSBuilder{
 // 						$serverStatus,
 // 						$dnssecText
 // 						) . PHP_EOL;
-				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n",
-						$this->getDomainName(),
-						$priPath,
+				$this->zoneList .= sprintf("zone:\n  - domain: %s\n",
+//				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n",
+//						$this->getDomainName(),
+//						$priPath,
 						$this->getDomainName()
 						) . PHP_EOL;
 						break;
