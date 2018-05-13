@@ -107,12 +107,17 @@ class DNSBuilder{
 				// 					$slaveList .= sprintf("    notify: %s\n", $slave);
 				// 				}
 				$slaveList = implode(', ', $this->config["server-slaves"]);
+				$dnssecInfo = '';
+				if($dnssec == true){
+					$dnssecInfo = '    template: signed\n';
+				}
 				
-				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n    notify: [%s]\n",
+				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n    notify: [%s]\n%s",
 						$this->getDomainName(),
 						$priPath,
 						$this->getDomainName(),
-						$slaveList
+						$slaveList,
+						$dnssecInfo
 						) . PHP_EOL;
 						break;
 						
