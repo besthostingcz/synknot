@@ -109,7 +109,7 @@ class DNSBuilder{
 				$slaveList = implode(', ', $this->config["server-slaves"]);
 				$dnssecInfo = '';
 				if($dnssec == true){
-					$dnssecInfo = '    template: signed\n';
+					$dnssecInfo = "    template: signed\n";
 				}
 				
 				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n    notify: [%s]\n%s",
