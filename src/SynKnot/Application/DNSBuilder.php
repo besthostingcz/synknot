@@ -112,13 +112,18 @@ class DNSBuilder{
 					$dnssecInfo = "    template: signed\n";
 				}
 				
-				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n    notify: [%s]\n%s",
+				$this->zoneList .= sprintf("zone:\n  - domain: %s\n%s",
 						$this->getDomainName(),
-						$priPath,
-						$this->getDomainName(),
-						$slaveList,
 						$dnssecInfo
 						) . PHP_EOL;
+// 				$this->zoneList .= sprintf("zone:\n  - domain: %s\n    storage: %s\n    file: %s.zone\n    notify: [%s]\n%s",
+// 						$this->getDomainName(),
+// 						$priPath,
+// 						$this->getDomainName(),
+// 						$slaveList,
+// 						$dnssecInfo
+// 						) . PHP_EOL;
+								
 						break;
 						
 			case "default":
